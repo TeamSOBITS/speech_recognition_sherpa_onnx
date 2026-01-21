@@ -94,7 +94,7 @@ First, please set up the following environment before proceeding to the next ins
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Launch and Usage
-1. Follow the [Model Download Method](https://github.com/TeamSOBITS/speech_recognition_sherpa_onnx%3Ftab%3Dreadme-ov-file%23%25E3%2583%25A2%25E3%2583%2587%25E3%2583%25AB%25E3%2581%25AE%25E3%2583%2580%25E3%2582%25A6%25E3%2583%25B3%25E3%2583%25AD%25E3%2583%25BC%25E3%2583%2589%25E6%2596%25B9%25E6%25B3%2595) to download the models used for speech recognition.
+1. Follow the [Model Download Method](https://github.com/TeamSOBITS/speech_recognition_sherpa_onnx/blob/humble-devel/README.en.md#model-download-method) to download the models used for speech recognition.
 
 2. In Ubuntu settings, set the input device for sound to the microphone you intend to use.
 
