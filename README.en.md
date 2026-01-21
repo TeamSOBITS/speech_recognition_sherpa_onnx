@@ -8,7 +8,7 @@
 [![Issues][issues-shield]][issues-url]
 [![License][license-shield]][license-url]
 
-# Speech Recognition Sherpa Onnx
+# Speech Recognition Sherpa ONNX
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -40,7 +40,7 @@
 
 ## Introduction
 
-Speech Recognition Sherpa Onnx is a ROS 2 package designed to provide speech recognition capabilities via Action communication, leveraging the [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) engine powered by ONNX Runtime.
+Speech Recognition Sherpa ONNX is a ROS 2 package designed to provide speech recognition capabilities via Action communication, leveraging the [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) engine powered by ONNX Runtime.
 
 It is optimized for CPU environments and supports both streaming (real-time) and batch recognition across a wide variety of available models.
 

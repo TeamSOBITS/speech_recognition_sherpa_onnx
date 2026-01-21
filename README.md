@@ -8,7 +8,7 @@
 [![Issues][issues-shield]][issues-url]
 [![License][license-shield]][license-url]
 
-# Speech Recognition Sherpa Onnx
+# Speech Recognition Sherpa ONNX
 
 <!-- 目次 -->
 <details>
@@ -40,7 +40,7 @@
 
 ## 概要
 
-Speech Recognition Sherpa Onnxは，ONNX Runtimeを活用した音声認識エンジン [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) をROS 2 のAction通信で利用するためのパッケージです．
+Speech Recognition Sherpa ONNXは，ONNX Runtimeを活用した音声認識エンジン [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) をROS 2 のAction通信で利用するためのパッケージです．
 
 CPU環境で動作します．また，ストリーミング認識（逐次認識）とバッチ認識（一括認識）の両方に対応しており，膨大なモデル群から様々なモデルを選択できます．
 
