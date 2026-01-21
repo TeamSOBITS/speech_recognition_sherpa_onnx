@@ -1,0 +1,30 @@
+models:
+  - name: "sherpa-onnx-nemo-parakeet_tdt_ctc_110m-en-36000-int8 (en, Non streaming)"
+    folder_name: "sherpa-onnx-nemo-parakeet_tdt_ctc_110m-en-36000-int8"
+    url: "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-nemo-parakeet_tdt_ctc_110m-en-36000-int8.tar.bz2"
+    description: ""
+
+  - name: "sherpa-onnx-zipformer-gigaspeech-2023-12-12 (en, Non streaming)"
+    folder_name: "sherpa-onnx-zipformer-gigaspeech-2023-12-12"
+    url: "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-zipformer-gigaspeech-2023-12-12.tar.bz2"
+    description: ""
+
+  - name: "sherpa-onnx-nemotron-speech-streaming-en-0.6b-int8-2026-01-14 (en, Streaming)"
+    folder_name: "sherpa-onnx-nemotron-speech-streaming-en-0.6b-int8-2026-01-14"
+    url: "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-nemotron-speech-streaming-en-0.6b-int8-2026-01-14.tar.bz2"
+    description: ""
+
+  - name: "sherpa-onnx-streaming-zipformer-en-kroko-2025-08-06 (en, Streaming)"
+    folder_name: "sherpa-onnx-streaming-zipformer-en-kroko-2025-08-06"
+    url: "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-streaming-zipformer-en-kroko-2025-08-06.tar.bz2"
+    description: ""
+
+  - name: "sherpa-onnx-nemo-parakeet-tdt_ctc-0.6b-ja-35000-int8 (ja, Non streaming)"
+    folder_name: "sherpa-onnx-nemo-parakeet-tdt_ctc-0.6b-ja-35000-int8"
+    url: "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-nemo-parakeet-tdt_ctc-0.6b-ja-35000-int8.tar.bz2"
+    description: ""
+
+  - name: "sherpa-onnx-zipformer-ja-reazonspeech-2024-08-01 (ja, Non streaming)"
+    folder_name: "sherpa-onnx-zipformer-ja-reazonspeech-2024-08-01"
+    url: "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-zipformer-ja-reazonspeech-2024-08-01.tar.bz2"
+    description: ""

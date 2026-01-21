@@ -1,0 +1,85 @@
+/**:
+  ros__parameters:
+    global_settings:
+      decoding_method: "greedy_search"
+
+    streaming_models:
+      enable_endpoint_detection: false
+      rule1_min_trailing_silence: 2.4
+      rule2_min_trailing_silence: 1.2
+      rule3_min_utterance_length: 20.0
+
+      transducer:
+        num_threads: 2
+        max_active_paths: 4
+        blank_penalty: 0.0
+        temperature_scale: 2.0
+
+      wenet_ctc:
+        num_threads: 2
+        chunk_size: 16
+        num_left_chunks: 4
+        
+      zipformer2_ctc:
+        num_threads: 2
+        ctc_max_active: 3000
+      paraformer:
+        num_threads: 2
+      nemo_ctc:
+        num_threads: 2
+      t_one_ctc:
+        num_threads: 2
+
+    batch_models:
+      whisper:
+        num_threads: 2
+        language: "en"
+        task: "transcribe"
+        tail_paddings: -1
+
+      sense_voice:
+        num_threads: 2
+        language: "auto"
+        use_itn: true
+
+      nemo_canary:
+        num_threads: 2
+        src_lang: "en"
+        tgt_lang: "en"
+
+      transducer:
+        num_threads: 2
+        max_active_paths: 4
+        blank_penalty: 0.0
+
+      moonshine:
+        num_threads: 2
+      fire_red_asr:
+        num_threads: 2
+      paraformer:
+        num_threads: 2
+      zipformer:
+        num_threads: 2
+      dolphin:
+        num_threads: 2
+      medasr:
+        num_threads: 2
+      telespeech:
+        num_threads: 2
+      omnilingual:
+        num_threads: 2
+      tdnn:
+        num_threads: 2
+      wenet:
+        num_threads: 2
+      nemo:
+        num_threads: 2
+
+      fun_asr_nano:
+        num_threads: 2
+        max_new_tokens: 512
+        temperature: 0.0
+        top_p: 0.8
+        system_prompt: "You are a helpful assistant."
+        user_prompt: "语音转写:"
+        seed: 42
