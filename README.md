@@ -102,10 +102,10 @@ CPU環境で動作します．また，ストリーミング認識（逐次認�
     ls ~/.sherpa_onnx_asr_models/
     ```
 
-4. [sherpaserver.launch.py](launch/sherpaserver.launch.py)の``model_name``を使用するモデル名に書き換えてから，以下のコマンドで起動します．**Sherpa Onnx Server is READY and waiting for requests**と表示されるまでgoalを送らずに待機してください．
+4. [sherpa_onnx.launch.py](launch/sherpa_onnx.launch.py)の``model_name``を使用するモデル名に書き換えてから，以下のコマンドで起動します．**Sherpa Onnx Server is READY and waiting for requests**と表示されるまでgoalを送らずに待機してください．
 
    ```sh
-   ros2 launch speech_recognition_sherpa_onnx sherpaserver.launch.py 
+   ros2 launch speech_recognition_sherpa_onnx sherpa_onnx.launch.py 
    ```
 
 5. アクションクライアントを起動します．
