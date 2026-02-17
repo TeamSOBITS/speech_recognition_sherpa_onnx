@@ -141,6 +141,12 @@ class ModelManagerApp:
         self.status_label.pack(side=tk.LEFT)
         self.progress = ttk.Progressbar(self.info_frame, orient=tk.HORIZONTAL, mode='determinate')
         self.progress.pack(side=tk.RIGHT, fill=tk.X, expand=True, padx=10)
+        self.notebook.bind("<<NotebookTabChanged>>", self.on_tab_changed)
+    
+    def on_tab_changed(self, event):
+        selected_tab = self.notebook.index(self.notebook.select())
+        if selected_tab == 1 and not self.api_models:
+            self.start_api_fetch()
 
     def create_treeview_with_scroll(self, parent):
         container = tk.Frame(parent)
