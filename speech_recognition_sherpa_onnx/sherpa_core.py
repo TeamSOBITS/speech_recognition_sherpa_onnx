@@ -29,12 +29,19 @@ class SherpaEngine:
 
         YELLOW = '\033[93m'
         ENDC = '\033[0m'
-        is_mine, reason = sherpa_utils.is_landmine_model(self.model_dir)
-        if is_mine:
-            raise TypeError(
-                f"[Landmine Detected] The model in '{os.path.basename(self.model_dir)}' "
-                f"{YELLOW}cannot be used with this engine. Reason: {reason}{ENDC}"
-            )
+        files_in_dir = os.listdir(self.model_dir)
+        is_funasr_nano = any("llm" in f.lower() for f in files_in_dir)
+
+        if not is_funasr_nano:
+            is_mine, reason = sherpa_utils.is_landmine_model(self.model_dir)
+            if is_mine:
+                raise TypeError(
+                    f"[Landmine Detected] The model in '{os.path.basename(self.model_dir)}' "
+                    f"{YELLOW}cannot be used with this engine. Reason: {reason}{ENDC}"
+                )
+        else:
+            print(f"[*] Special Model Detected (FunASR-nano style). Skipping standard landmine check.")
+
         self.device = device
         self.recognizer = None
         self.is_streaming = False 
@@ -249,9 +256,9 @@ class SherpaEngine:
         num_threads = conf.get('num_threads', 2)
         
         if model_type == "fun_asr_nano":
-            encoder_adaptor = self._find(self.model_dir, "encoder_adaptor")
-            llm = self._find(self.model_dir, "llm")
-            embedding = self._find(self.model_dir, "embedding")
+            encoder_adaptor = self._find("encoder_adaptor")
+            llm = self._find("llm")
+            embedding = self._find("embedding")
             
             tokenizer_dir = self.model_dir 
             try:
@@ -273,6 +280,7 @@ class SherpaEngine:
             temperature = conf.get("temperature", 1e-6)
             top_p = conf.get("top_p", 0.8)
             seed = conf.get("seed", 42)
+            language = conf.get("language", "")
 
             self.recognizer = sherpa_onnx.OfflineRecognizer.from_funasr_nano(
                 encoder_adaptor=encoder_adaptor,
@@ -290,7 +298,8 @@ class SherpaEngine:
                 max_new_tokens=max_new_tokens,
                 temperature=temperature,
                 top_p=top_p,
-                seed=seed
+                seed=seed,
+                language=language
             )
 
         elif model_type == "nemo_canary":

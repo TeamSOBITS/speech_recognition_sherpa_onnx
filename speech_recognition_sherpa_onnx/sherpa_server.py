@@ -195,6 +195,7 @@ class SherpaOnnxServer(Node):
         
         stream = self.engine.create_stream() 
         last_streaming_text = ""
+        sent_length = 0
 
         def run_inference_task(audio_data_list):
             if goal_handle.is_cancel_requested: return
@@ -246,10 +247,13 @@ class SherpaOnnxServer(Node):
                     samples = resampled_data.astype(np.float32) / 32768.0
                     stream.accept_waveform(16000, samples)
                     text = self.engine.process_stream(stream)
-                    if text and text != last_streaming_text and self.use_feedback_enabled:
+                    if text and len(text) > sent_length and self.use_feedback_enabled:
+                        new_segment = text[sent_length:]
                         fb = SpeechRecognition.Feedback()
-                        fb.addition_text = text
-                        goal_handle.publish_feedback(fb)
+                        fb.addition_text = new_segment
+                        if fb.addition_text:
+                            goal_handle.publish_feedback(fb)
+                            sent_length = len(text)
                         last_streaming_text = text
 
                 elif self.use_feedback_enabled and vad_segmenter:

@@ -52,6 +52,16 @@
         max_active_paths: 4
         blank_penalty: 0.0
 
+      fun_asr_nano:
+        num_threads: 2
+        max_new_tokens: 512
+        temperature: 0.0
+        top_p: 0.8
+        system_prompt: "You are a helpful assistant."
+        user_prompt: "Transcribe"
+        seed: 42
+        language: "en"
+
       moonshine:
         num_threads: 2
       fire_red_asr:
@@ -74,12 +84,3 @@
         num_threads: 2
       nemo:
         num_threads: 2
-
-      fun_asr_nano:
-        num_threads: 2
-        max_new_tokens: 512
-        temperature: 0.0
-        top_p: 0.8
-        system_prompt: "You are a helpful assistant."
-        user_prompt: "语音转写:"
-        seed: 42

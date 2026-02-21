@@ -190,7 +190,7 @@ First, please set up the following environment before proceeding to the next ins
         - nemo
             - Provides high recognition accuracy, though processing speed and resource requirements depend on model size and execution environment.
         - fun_asr_nano
-            - Support for ultra-small models combined with LLMs is planned (scheduled in the roadmap/milestones).
+            - Support for ultra-small models combined with LLMs that supports custom prompts.
   
       
       </details>
@@ -210,7 +210,7 @@ First, please set up the following environment before proceeding to the next ins
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Parameters
-There are two types of parameters: those that can be configured in [sherpa_onnx.launch.py](launch/sherpa_onnx.launch.py).launch.py and those that can be configured in [params.yaml](config/params.yaml).
+There are two types of parameters: those that can be configured in [sherpa_onnx.launch.py](launch/sherpa_onnx.launch.py) and those that can be configured in [params.yaml](config/params.yaml).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -378,7 +378,6 @@ In [params.yaml](config/params.yaml), you can specify the following parameters f
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Milestone
-- [ ] Support for `fun_asr_nano`
 
 See the [open issues][issues-url] for a full list of proposed features (and known issues).
 

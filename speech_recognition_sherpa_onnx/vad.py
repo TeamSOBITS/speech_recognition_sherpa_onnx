@@ -47,9 +47,6 @@ class VadProcessor:
         return self.hop_size, self.vad_chunk_size_bytes, self.vad_name
     
     def is_speech(self, resampled_data_bytes, feedback_rate=1.0):
-        """
-        音声データ(bytes)を受け取り、音声区間かどうかを返す
-        """
         if self.vad_model:
             audio_np = np.frombuffer(resampled_data_bytes, dtype=np.int16)
             if audio_np.shape[0] < self.hop_size:
@@ -58,7 +55,7 @@ class VadProcessor:
             prob, _ = self.vad_model.process(process_chunk)
             is_voice = prob > self.threshold
             status = "ON " if is_voice else "Off"
-            self.logger.info(f"Voice: {status}, P:{prob:.2f}")
+            # self.logger.info(f"Voice: {status}, P:{prob:.2f}")
             return is_voice
         else:
             current_time = time.time()
@@ -70,10 +67,6 @@ class VadProcessor:
 
 
 class VadSegmenter:
-    """
-    VAD判定を用いて、音声ストリームから「発話区間」を切り出すクラス
-    Pre/Postバッファの管理や状態遷移を隠蔽する
-    """
     def __init__(self, vad_processor: VadProcessor, min_duration_sec, max_duration_sec, extra_duration_sec):
         self.vad_processor = vad_processor
         self.hop_size, self.chunk_size_bytes, self.vad_name = self.vad_processor.get_specs()

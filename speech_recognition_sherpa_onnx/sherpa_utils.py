@@ -32,7 +32,7 @@ def is_landmine_model(directory):
     if not any(f.endswith(".onnx") for f in files):
         return True, "no onnx model found"
 
-    if "tokens.txt" not in files and "bpe.model" not in files:
+    if find_tokens(directory) is None and "bpe.model" not in files:
         return True, "tokens.txt or bpe.model missing"
 
     return False, None
