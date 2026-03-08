@@ -75,7 +75,8 @@ class ModelManagerApp:
             "aarch64", "arm64", "arm",
             "qnn", "rknn", "horizon", "coreml",
             "ncnn", "libtorch",
-            "rk35", "rk33", "rockchip"
+            "rk35", "rk33", "rockchip",
+            "ascend"
         ]
         for k in blocked_keywords:
             if k in name:

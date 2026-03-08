@@ -7,22 +7,34 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     package_name = 'speech_recognition_sherpa_onnx'
-    
+
+    stt_engine_arg = DeclareLaunchArgument(
+        'stt_engine',
+        default_value='sherpa',
+        description='STT Engine type (e.g., sherpa)'
+    )
+
     model_name_arg = DeclareLaunchArgument(
         'model_name',
         default_value='sherpa-onnx-streaming-zipformer-en-kroko-2025-08-06',
         description='Name of the model folder'
     )
 
+    default_config_path = os.path.join(
+        get_package_share_directory(package_name),
+        'config',
+        'params.yaml'
+    )
+
     device_arg = DeclareLaunchArgument(
         'device',
         default_value='cpu',
-        description='Execution device (cpu)'
+        description='Execution device (cpu, cuda, coreml)'
     )
 
     mic_volume_arg = DeclareLaunchArgument(
         'mic_volume',
-        default_value='100',
+        default_value='',
         description='Microphone volume level'
     )
 
@@ -92,19 +104,22 @@ def generate_launch_description():
         description='Digital Gain Control'
     )
 
-    config_path = os.path.join(
-        get_package_share_directory(package_name),
-        'config',
-        'params.yaml'
+    config_path_arg = DeclareLaunchArgument(
+        'config_path',
+        default_value=default_config_path,
+        description='Full path to the YAML configuration file'
     )
+
     sherpa_onnx_node = Node(
         package=package_name,
         executable='sherpa_server',
         name='sherpa_onnx_server',
         output='screen',
         parameters=[
-            config_path,  
-            {             
+            LaunchConfiguration('config_path'),
+            {
+                'config_path': LaunchConfiguration('config_path'),
+                'stt_engine': LaunchConfiguration('stt_engine'),
                 'model_name': LaunchConfiguration('model_name'),
                 'device': LaunchConfiguration('device'),
                 'mic_volume': LaunchConfiguration('mic_volume'),
@@ -124,6 +139,8 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        config_path_arg,
+        stt_engine_arg,
         model_name_arg,
         device_arg,
         mic_volume_arg,

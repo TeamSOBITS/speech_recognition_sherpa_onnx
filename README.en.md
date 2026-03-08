@@ -55,10 +55,10 @@ This section describes how to set up this repository.
 First, please set up the following environment before proceeding to the next installation stage.
 
 | System  | Version |
-| --- | --- |
-| Ubuntu | 22.04 (Jammy Jellyfish) |
-| ROS    | Humble Hawksbill |
-| Python | 3.10 |
+| ------------- | ------------- |
+| Ubuntu | 24.04 (Noble Numbat) |
+| ROS | Jazzy Jalisco |
+| Python | 3.12 |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -70,7 +70,7 @@ First, please set up the following environment before proceeding to the next ins
 
 2. Clone this repository.
     ```sh
-    git clone -b humble-devel https://github.com/TeamSOBITS/speech_recognition_sherpa_onnx.git
+    git clone -b jazzy-devel https://github.com/TeamSOBITS/speech_recognition_sherpa_onnx.git
     ```
 3. Navigate into the repository.
     ```sh
@@ -94,7 +94,7 @@ First, please set up the following environment before proceeding to the next ins
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Launch and Usage
-1. Follow the [Model Download Method](https://github.com/TeamSOBITS/speech_recognition_sherpa_onnx/blob/humble-devel/README.en.md#model-download-method) to download the models used for speech recognition.
+1. Follow the [Model Download Method](https://github.com/TeamSOBITS/speech_recognition_sherpa_onnx/blob/jazzy-devel/README.en.md#model-download-method) to download the models used for speech recognition.
 
 2. In Ubuntu settings, set the input device for sound to the microphone you intend to use.
 
@@ -222,7 +222,7 @@ In [sherpa_onnx.launch.py](launch/sherpa_onnx.launch.py), you can specify the fo
 | --- | --- | --- |
 | model_name | Name of the speech recognition model | sherpa-onnx-streaming-zipformer-en-kroko-2025-08-06 |
 | device | Computing device to use. Currently, only `cpu` is supported. | cpu |
-| mic_volume | Sets the microphone input volume as a percentage. It returns to the original volume after the program exits. Example: "150" | "" |
+| mic_volume | Sets the microphone input volume as a percentage. It returns to the original volume after the program exits. Example: "150%" | "" |
 | use_feedback | Whether to use Feedback. | True |
 
 

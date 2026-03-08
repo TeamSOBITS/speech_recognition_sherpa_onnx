@@ -1,48 +1,21 @@
 #!/bin/bash
 set -e
 
-echo "--- Sherpa-ONNX setup (Robust path detection) ---"
+echo "--- Sherpa-ONNX setup (Standard CPU version) ---"
 
 sudo apt update
-sudo apt install -y pulseaudio-utils ffmpeg
+sudo apt install -y pulseaudio-utils ffmpeg curl wget bzip2
 
 pip3 install -U typing_extensions psutil --break-system-packages
-pip3 install "numpy<2.0.0" --force-reinstall --break-system-packages
+pip3 install "numpy==1.26.4" --force-reinstall --break-system-packages
 pip3 install -U git+https://github.com/TEN-framework/ten-vad.git --break-system-packages
 
-HAS_GPU=false
-if command -v nvidia-smi &>/dev/null && nvidia-smi -L &>/dev/null; then
-  HAS_GPU=true
-fi
-
+echo "Installing onnxruntime (CPU) and sherpa-onnx..."
 pip3 uninstall -y sherpa-onnx onnxruntime onnxruntime-gpu --break-system-packages || true
+pip3 install onnxruntime sherpa-onnx --break-system-packages
 
-if $HAS_GPU; then
-  echo "[GPU detected] Trying GPU wheels..."
-  pip3 install onnxruntime-gpu --break-system-packages || true
-  pip3 install sherpa-onnx --break-system-packages || true
-fi
-
-CUDA_OK=$(python3 - <<'EOF'
-import sys
-if sys.path[0] == '': sys.path.pop(0)
-try:
-    import onnxruntime as ort
-    print("CUDAExecutionProvider" in ort.get_available_providers())
-except:
-    print("False")
-EOF
-)
-
-if $HAS_GPU && [ "$CUDA_OK" = "True" ]; then
-  echo "[OK] GPU mode enabled"
-else
-  echo "[Fallback] Using CPU mode"
-  pip3 uninstall -y onnxruntime-gpu --break-system-packages || true
-  pip3 install onnxruntime sherpa-onnx --break-system-packages
-fi
-
-mkdir -p ~/.sherpa_onnx_asr_models
+BASE_DIR="$HOME/.sherpa_onnx_asr_models"
+mkdir -p "$BASE_DIR"
 
 echo "Configuring LD_LIBRARY_PATH..."
 
@@ -68,40 +41,34 @@ if [ -n "$ORT_LIB_PATH" ] && [ -d "$ORT_LIB_PATH" ]; then
         echo "[Info] LD_LIBRARY_PATH is already configured in .bashrc"
     fi
 else
-    echo "[Error] Could not detect onnxruntime/capi directory."
+    echo "[Warning] Could not detect onnxruntime/capi directory. Internal library resolution might fail."
 fi
 
-# default model download
 echo "Downloading default model..."
-URL="https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-streaming-zipformer-en-kroko-2025-08-06.tar.bz2"
+MODEL_NAME="sherpa-onnx-streaming-zipformer-en-kroko-2025-08-06"
+URL="https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/${MODEL_NAME}.tar.bz2"
+MODEL_DIR="$BASE_DIR/$MODEL_NAME"
 
-BASE_DIR="$HOME/.sherpa_onnx_asr_models"
-MODEL_DIR="$BASE_DIR/sherpa-onnx-streaming-zipformer-en-kroko-2025-08-06"
-TMP_DIR="$BASE_DIR/tmp"
-FILE="model.tar.bz2"
-
-mkdir -p "$TMP_DIR"
-mkdir -p "$MODEL_DIR"
-
-cd "$TMP_DIR"
-
-if command -v curl >/dev/null 2>&1; then
-    curl -L -o "$FILE" "$URL"
-elif command -v wget >/dev/null 2>&1; then
-    wget -O "$FILE" "$URL"
+if [ ! -d "$MODEL_DIR" ]; then
+    TMP_DIR=$(mktemp -d)
+    cd "$TMP_DIR"
+    
+    echo "Downloading to $TMP_DIR..."
+    wget -O model.tar.bz2 "$URL"
+    
+    mkdir -p "$MODEL_DIR"
+    tar -xvf model.tar.bz2 -C "$MODEL_DIR" --strip-components=1
+    
+    cd ~
+    rm -rf "$TMP_DIR"
+    echo "[Success] Model installed to $MODEL_DIR"
 else
-    echo "Please install curl or wget"
-    exit 1
+    echo "[Info] Model already exists. Skipping download."
 fi
-
-tar -xvf "$FILE" -C "$MODEL_DIR" --strip-components=1
-
-rm -f "$FILE"
-rmdir "$TMP_DIR" 2>/dev/null || true
 
 echo "----------------------------"
-echo "Providers:"
-python3 -c "import sys; sys.path.pop(0) if sys.path[0]=='' else None; import onnxruntime as ort; print(ort.get_available_providers())"
-echo "Library Path: $LD_LIBRARY_PATH"
+echo "Installation Summary:"
+python3 -c "import sys; sys.path.pop(0) if sys.path[0]=='' else None; import onnxruntime as ort; print('Available Providers:', ort.get_available_providers())"
+echo "Model Directory: $BASE_DIR"
 echo "--- Done ---"
-echo "Please run 'source ~/.bashrc' or restart your terminal."
+echo "Please run 'source ~/.bashrc' to apply changes."

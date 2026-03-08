@@ -54,10 +54,10 @@ CPU環境で動作します．また，ストリーミング認識（逐次認�
 ### 環境条件
 まず，以下の環境を整えてから，次のインストール方法に進んでください．
 | System  | Version |
-| --- | --- |
-| Ubuntu | 22.04 (Jammy Jellyfish) |
-| ROS    | Humble Hawksbill |
-| Python | 3.10 |
+| ------------- | ------------- |
+| Ubuntu | 24.04 (Noble Numbat) |
+| ROS | Jazzy Jalisco |
+| Python | 3.12 |
 
 <p align="right">(<a href="#readme-top">上に戻る</a>)</p>
 
@@ -69,7 +69,7 @@ CPU環境で動作します．また，ストリーミング認識（逐次認�
 
 2. 本レポジトリをcloneします．
     ```sh
-    git clone -b humble-devel https://github.com/TeamSOBITS/speech_recognition_sherpa_onnx.git
+    git clone -b jazzy-devel https://github.com/TeamSOBITS/speech_recognition_sherpa_onnx.git
     ```
 3. レポジトリの中へ移動します．
     ```sh
@@ -220,7 +220,7 @@ CPU環境で動作します．また，ストリーミング認識（逐次認�
 | --- | --- | --- |
 | model_name | 音声認識モデルの名前| sherpa-onnx-streaming-zipformer-en-kroko-2025-08-06 |
 | device | 使用する計算デバイス． 現在は`cpu`のみに対応| cpu |
-| mic_volume	| マイクの入力音量をパーセンテージで設定する．プログラム終了後は元の音量に戻る．例: "150" | "" |
+| mic_volume	| マイクの入力音量をパーセンテージで設定する．プログラム終了後は元の音量に戻る．例: "150%" | "" |
 | use_feedback | Feedbackを使用するかどうか | True |
 
 
